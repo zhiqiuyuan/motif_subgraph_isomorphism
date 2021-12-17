@@ -31,8 +31,11 @@ void moving_average(double *old_ave, double *new_val, unsigned &cnt, unsigned sz
  * sz:size of candidates_num
  * candidates_num: candidates_num[i] is size of candidates[i]
  */
-void print_candidates(unsigned **candidates, unsigned *candidates_num, unsigned sz);
-
+void printCandidates(unsigned **candidates, unsigned *candidates_num, unsigned sz);
+/* 输出markdown式表格到标准输出
+* head:表头
+*/
+void printMdTables(std::vector<std::string> head, unsigned **data, int rowsz, std::string textBeforeTable);
 /*
 * FILE
 */

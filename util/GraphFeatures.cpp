@@ -1,6 +1,26 @@
 #include "GraphFeatures.h"
-/*
-//标签有向图：统计所有q图中频率为1的特征占比
+
+GraphFeatures::GraphFeatures(Graph *g) : graph(g)
+{
+}
+
+GraphFeatures::~GraphFeatures()
+{
+}
+
+//输出图中的bi degree之和
+unsigned GraphFeatures::getTotalBidegree()
+{
+    unsigned vertices_cnt = graph->getVerticesCount();
+    unsigned total_bidegree = 0;
+    for (unsigned i = 0; i < vertices_cnt; ++i)
+    {
+        total_bidegree += graph->getVertexBiDegree(i);
+    }
+    return total_bidegree;
+}
+
+/*标签有向图：统计所有q图中频率为1的特征占比
 #if LABEL_MOTIF_ENABLE == 1 && DIRECTED_GRAPH == 1
 int main_1(int argc, char **argv)
 {
@@ -73,40 +93,4 @@ int main_1(int argc, char **argv)
 }
 #endif //#if LABEL_MOTIF_ENABLE == 1 && DIRECTED_GRAPH==1
 
-
-//输出指定数据图的性质
-int main_2()
-{
-    std::string fnamepre = "/media/data/hnu2022/yuanzhiqiu/";
-    std::vector<std::string> dg = {"human", "wordnet", "dblp", "eu2005", "youtube", "patents"};
-    for (auto dn : dg)
-    {
-        std::string fname = fnamepre + dn + "/data_graph/" + dn + ".graph";
-        Graph *g = new Graph();
-        g->loadGraphFromFile_directed(fname);
-        std::cout << "数据图属性：" << std::endl;
-        std::cout << "| \\|顶点数\\| | \\|边数\\| | \\|顶点标签集\\| | 顶点平均度数（入度+出度） |" << std::endl;
-        std::cout << "| ---------- | -------- | -------------- | ------------------------- |" << std::endl;
-        std::cout << "| " << g->getVerticesCount() << " |" << g->getEdgesCount() << " |" << g->getLabelsCount() << " |\n"
-                  << std::endl;
-    }
-    return 0;
-}
-
-//输出图中的bi degree之和
-int main_3(int argc, char **argv)
-{
-    std::string filename = argv[1];
-    Graph *data_graph = new Graph();
-    data_graph->loadGraphFromFile_directed(filename);
-    unsigned vertices_cnt = data_graph->getVerticesCount();
-    unsigned total_bidegree = 0;
-    for (unsigned i = 0; i < vertices_cnt; ++i)
-    {
-        total_bidegree += data_graph->getVertexBiDegree(i);
-    }
-    std::string dgname = filename.substr(filename.find_last_of('/') + 1);
-    std::cout << dgname << ":" << total_bidegree << std::endl;
-    return 0;
-}
 */

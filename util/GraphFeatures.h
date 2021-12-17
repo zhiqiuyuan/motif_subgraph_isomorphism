@@ -1,3 +1,18 @@
 #include "types.h"
+#include "../MotifGraph/Graph.h"
 
-//写个类，其中有个成员是Graph*，提供对这个成员输出features的方法
+class GraphFeatures
+{
+    /*提供对成员Graph*graph输出features的方法
+    */
+private:
+    Graph *graph;
+
+public:
+    GraphFeatures(Graph *g);
+    virtual ~GraphFeatures();
+
+    /* 需要graph已经加载基础结构
+    */
+    unsigned getTotalBidegree();
+};

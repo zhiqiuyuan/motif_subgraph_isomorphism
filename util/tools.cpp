@@ -95,7 +95,7 @@ void moving_average(double *old_ave, double *new_val, unsigned &cnt, unsigned sz
  * sz:size of candidates_num
  * candidates_num: candidates_num[i] is size of candidates[i]
  */
-void print_candidates(unsigned **candidates, unsigned *candidates_num, unsigned sz)
+void printCandidates(unsigned **candidates, unsigned *candidates_num, unsigned sz)
 {
     unsigned num;
     char split_c = '\t';
@@ -106,6 +106,36 @@ void print_candidates(unsigned **candidates, unsigned *candidates_num, unsigned 
         for (unsigned j = 0; j < num; ++j)
         {
             std::cout << "v" << candidates[i][j] + 1 << split_c;
+        }
+        std::cout << std::endl;
+    }
+}
+
+void printMdTables(std::vector<std::string> head, unsigned **data, int rowsz, std::string textBeforeTable)
+{
+    std::cout << textBeforeTable << std::endl;
+
+    std::cout << "|";
+    for (auto h : head)
+    {
+        std::cout << " " << h << " |";
+    }
+    std::cout << std::endl;
+
+    int colsz = head.size();
+    std::cout << "|";
+    for (int i = 0; i < colsz; ++i)
+    {
+        std::cout << " -- |";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < rowsz; ++i)
+    {
+        std::cout << "|";
+        for (int j = 0; j < colsz; ++j)
+        {
+            std::cout << " " << data[i][j] << " |";
         }
         std::cout << std::endl;
     }
