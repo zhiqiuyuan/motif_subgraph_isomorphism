@@ -1,5 +1,4 @@
 ./getFilenamesUnderdir.cpp
 ./main.exe
-./.gitignore
 ./.vscode
 ./.vscode/*
