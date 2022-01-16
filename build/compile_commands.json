@@ -1,0 +1,127 @@
+[
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/bulkQueries",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -DbulkQueries_EXPORTS @CMakeFiles/bulkQueries.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\bulkQueries.dir\\BulkQueries.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\bulkQueries\\BulkQueries.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/bulkQueries/BulkQueries.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/Matching",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -DMatching_EXPORTS @CMakeFiles/Matching.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\Matching.dir\\Filter.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\Matching\\Filter.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/Matching/Filter.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/Matching",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -DMatching_EXPORTS @CMakeFiles/Matching.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\Matching.dir\\GenerateOrder.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\Matching\\GenerateOrder.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/Matching/GenerateOrder.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/MotifGraph",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -DMotifGraph_EXPORTS @CMakeFiles/MotifGraph.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\MotifGraph.dir\\Graph.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\MotifGraph\\Graph.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/MotifGraph/Graph.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/MotifGraph",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -DMotifGraph_EXPORTS @CMakeFiles/MotifGraph.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\MotifGraph.dir\\Motif.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\MotifGraph\\Motif.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/MotifGraph/Motif.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/MotifGraph",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -DMotifGraph_EXPORTS @CMakeFiles/MotifGraph.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\MotifGraph.dir\\MotifG.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\MotifGraph\\MotifG.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/MotifGraph/MotifG.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/MotifGraph",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -DMotifGraph_EXPORTS @CMakeFiles/MotifGraph.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\MotifGraph.dir\\MotifQ.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\MotifGraph\\MotifQ.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/MotifGraph/MotifQ.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/util",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -Dutil_EXPORTS @CMakeFiles/util.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\util.dir\\GenerateTVEFileQ.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\util\\GenerateTVEFileQ.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/util/GenerateTVEFileQ.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/util",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -Dutil_EXPORTS @CMakeFiles/util.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\util.dir\\GraphFeatures.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\util\\GraphFeatures.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/util/GraphFeatures.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/util",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -Dutil_EXPORTS @CMakeFiles/util.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\util.dir\\tools.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\util\\tools.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/util/tools.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/util",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe  -Dutil_EXPORTS @CMakeFiles/util.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\util.dir\\types.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\util\\types.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/util/types.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/util",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/turnEFile2TVEFile.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\turnEFile2TVEFile.dir\\TurnEFile2TVEFile.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\util\\TurnEFile2TVEFile.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/util/TurnEFile2TVEFile.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/util",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/turnEFile2TVEFile.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\turnEFile2TVEFile.dir\\tools.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\util\\tools.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/util/tools.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/filterWriteCandiScale.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\filterWriteCandiScale.dir\\FilterWriteCandiScale.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\FilterWriteCandiScale.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/FilterWriteCandiScale.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/filterWriteCandiScale.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\filterWriteCandiScale.dir\\TVEFileG.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\TVEFileG.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/TVEFileG.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/filterWriteCandiScale.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\filterWriteCandiScale.dir\\TVEFileQ.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\TVEFileQ.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/TVEFileQ.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/offline.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\offline.dir\\Offline.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\Offline.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/Offline.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/offline.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\offline.dir\\TVEFileG.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\TVEFileG.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/TVEFileG.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/generateTVEFileQ.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\generateTVEFileQ.dir\\GenerateTVEFileQ.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\GenerateTVEFileQ.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/GenerateTVEFileQ.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/generateTVEFileQ.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\generateTVEFileQ.dir\\TVEFileG.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\TVEFileG.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/TVEFileG.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/collectGGraphFeatures.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\collectGGraphFeatures.dir\\CollectGGraphFeatures.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\CollectGGraphFeatures.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/CollectGGraphFeatures.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/collectGGraphFeatures.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\collectGGraphFeatures.dir\\TVEFileG.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\TVEFileG.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/TVEFileG.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/collectQGraphFeatures.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\collectQGraphFeatures.dir\\CollectQGraphFeatures.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\CollectQGraphFeatures.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/CollectQGraphFeatures.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/collectQGraphFeatures.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\collectQGraphFeatures.dir\\TVEFileG.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\TVEFileG.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/TVEFileG.cpp"
+},
+{
+  "directory": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build/TVEFile",
+  "command": "E:\\dev_tools\\cppClassLearning\\CodeBlock\\CodeBlocks\\MinGW\\bin\\x86_64-w64-mingw32-g++.exe   @CMakeFiles/collectQGraphFeatures.dir/includes_CXX.rsp -g   -std=gnu++11 -o CMakeFiles\\collectQGraphFeatures.dir\\TVEFileQ.cpp.obj -c E:\\dev_tools\\cppClassLearning\\codeBlocks_learning_files\\motif\\afilter\\TVEFile\\TVEFileQ.cpp",
+  "file": "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/TVEFile/TVEFileQ.cpp"
+}
+]

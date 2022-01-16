@@ -12,7 +12,11 @@ Graph::Graph()
     edges_count_ = 0;
     labels_count_ = 0;
     max_label_frequency_ = 0;
+    max_single_degree_ = 0;
+    max_degree_ = 0;
     labels_ = NULL;
+    core_table_ = NULL;
+    core_length_ = 0;
 
     offsets_ = NULL;
     in_neighbors_nums_ = NULL;
@@ -21,12 +25,23 @@ Graph::Graph()
     out_neighbors_ = NULL;
     bi_neighbors_nums_ = NULL;
     bi_neighbors_ = NULL;
+
+    in_nlf_ = NULL;
+    out_nlf_ = NULL;
+    bi_nlf_ = NULL;
+    reverse_index_offsets_ = NULL;
+    reverse_index_ = NULL;
+    labels_frequency_.clear();
 }
 
 Graph::~Graph()
 {
     delete[] offsets_;
     delete[] labels_;
+    if (core_table_ != NULL)
+    {
+        delete[] core_table_;
+    }
 
     delete[] in_neighbors_nums_;
     delete[] in_neighbors_;
@@ -34,6 +49,21 @@ Graph::~Graph()
     delete[] out_neighbors_;
     delete[] bi_neighbors_nums_;
     delete[] bi_neighbors_;
+    if (in_nlf_ != NULL)
+    {
+        delete[] in_nlf_;
+    }
+    if (out_nlf_ != NULL)
+    {
+        delete[] out_nlf_;
+    }
+    if (bi_nlf_ != NULL)
+    {
+        delete[] bi_nlf_;
+    }
+
+    delete[] reverse_index_offsets_;
+    delete[] reverse_index_;
 }
 
 void Graph::printGraphMetaData()
@@ -41,11 +71,7 @@ void Graph::printGraphMetaData()
     std::cout << "|V|: " << vertices_count_ << ", |E|: " << edges_count_ << ", |label_set|: " << labels_count_ << std::endl;
 }
 
-/*
-- each vertex: label; in out bi neighbors;
-(label print as char: labelID+'A')
-*/
-void Graph::printGraphDetail()
+void Graph::printGraphDetail(bool print_nlf)
 {
     std::cout << "-----" << std::endl;
     std::cout << std::endl;
@@ -75,8 +101,114 @@ void Graph::printGraphDetail()
         {
             std::cout << "v" << arr[j] + 1 << " ";
         }
-        std::cout << "-----" << std::endl;
         std::cout << std::endl;
+
+        if (print_nlf)
+        {
+            std::cout << "in nlf: " << std::endl;
+            const std::unordered_map<LabelID, unsigned> *pmap = getVertexInNLF(i);
+            for (auto it : *pmap)
+            {
+                std::cout << char(it.first + 'A') << ":" << it.second << " ";
+            }
+            std::cout << std::endl;
+            std::cout << "out nlf: " << std::endl;
+            pmap = getVertexOutNLF(i);
+            for (auto it : *pmap)
+            {
+                std::cout << char(it.first + 'A') << ":" << it.second << " ";
+            }
+            std::cout << std::endl;
+            std::cout << "bi nlf: " << std::endl;
+            pmap = getVertexBiNLF(i);
+            for (auto it : *pmap)
+            {
+                std::cout << char(it.first + 'A') << ":" << it.second << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << "-----" << std::endl;
+    }
+}
+
+void Graph::buildCoreTable()
+{
+    core_table_ = new int[vertices_count_];
+    GraphFeatures::getKCore(this, core_table_);
+
+    for (unsigned i = 0; i < vertices_count_; ++i)
+    {
+        if (core_table_[i] > 1) //i是core vertices
+        {
+            core_length_ += 1;
+        }
+    }
+}
+
+void Graph::BuildNLF()
+{
+    in_nlf_ = new std::unordered_map<LabelID, unsigned>[vertices_count_];
+    out_nlf_ = new std::unordered_map<LabelID, unsigned>[vertices_count_];
+    bi_nlf_ = new std::unordered_map<LabelID, unsigned>[vertices_count_];
+    const VertexID *neighbors;
+    unsigned cnt;
+    LabelID label;
+    for (unsigned i = 0; i < vertices_count_; ++i)
+    {
+        //count 3 kind
+        neighbors = getVertexInNeighbors(i, cnt);
+        for (unsigned j = 0; j < cnt; ++j)
+        {
+            label = getVertexLabel(neighbors[j]);
+            if (in_nlf_[i].count(label) == 0)
+            {
+                in_nlf_[i][label] = 0;
+            }
+            in_nlf_[i][label]++;
+        }
+        neighbors = getVertexOutNeighbors(i, cnt);
+        for (unsigned j = 0; j < cnt; ++j)
+        {
+            label = getVertexLabel(neighbors[j]);
+            if (out_nlf_[i].count(label) == 0)
+            {
+                out_nlf_[i][label] = 0;
+            }
+            out_nlf_[i][label]++;
+        }
+        neighbors = getVertexBiNeighbors(i, cnt);
+        for (unsigned j = 0; j < cnt; ++j)
+        {
+            label = getVertexLabel(neighbors[j]);
+            if (bi_nlf_[i].count(label) == 0)
+            {
+                bi_nlf_[i][label] = 0;
+            }
+            bi_nlf_[i][label]++;
+        }
+    }
+}
+
+/*
+ * LDF, NLF
+ */
+void Graph::BuildReverseIndex()
+{
+    reverse_index_ = new unsigned[vertices_count_];
+    reverse_index_offsets_ = new unsigned[labels_count_ + 1];
+    reverse_index_offsets_[0] = 0;
+
+    unsigned total = 0;
+    for (unsigned i = 0; i < labels_count_; ++i)
+    {
+        reverse_index_offsets_[i + 1] = total;
+        total += labels_frequency_[i];
+    }
+
+    for (unsigned i = 0; i < vertices_count_; ++i)
+    {
+        LabelID label = labels_[i];
+        reverse_index_[reverse_index_offsets_[label + 1]++] = i;
     }
 }
 

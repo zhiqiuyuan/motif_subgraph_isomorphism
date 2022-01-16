@@ -18,23 +18,11 @@ protected:
     Lmtf **label_motif_count_;
     //每个vertex一个Lmtf数组
     unsigned *label_motif_count_sz_; //label_motif_count_数组每行有多少entries
-
-    //双边特征（无第三边）：出入双邻居组合
-    std::unordered_map<LabelID, unsigned> *in_nlf_; //每个vertex一个map
-    std::unordered_map<LabelID, unsigned> *out_nlf_;
-    std::unordered_map<LabelID, unsigned> *bi_nlf_;
-
 #if LABEL_MOTIF_LIMIT == 1
     //每个顶点一个map:code->cnt
     std::map<unsigned, unsigned> *label_motif_map_;
 #endif //LABEL_MOTIF_LIMIT==1
 #endif //LABEL_MOTIF_ENABLE == 1
-
-    //label->all vids
-    unsigned *reverse_index_offsets_;
-    unsigned *reverse_index_;
-    //label->frequency
-    std::unordered_map<LabelID, unsigned> labels_frequency_;
 
 /*
  * TOPO_MOTIF_ENABLE
@@ -80,9 +68,6 @@ public:
     */
     bool generateLabelMotifCount(std::string filename_prefix = "");
 
-    //build nlf
-    void BuildNLF();
-
 #if LABEL_MOTIF_LIMIT == 1
     /* filename_prefix:xxx/youtube
     * 覆盖写
@@ -107,10 +92,6 @@ public:
     bool generateLabelMotifCount_limit(std::string filename_prefix = "");
 
 #endif //LABEL_MOTIF_LIMIT==1
-       /*
-* LDF
-*/
-    void BuildReverseIndex();
 
 protected:
     /* 顶点i的所有特征都写入cnt_map_arr
@@ -158,19 +139,6 @@ public:
         return label_motif_count_[id];
     }
 
-    const std::unordered_map<LabelID, unsigned> *getVertexInNLF(const VertexID id) const
-    {
-        return in_nlf_ + id;
-    }
-    const std::unordered_map<LabelID, unsigned> *getVertexOutNLF(const VertexID id) const
-    {
-        return out_nlf_ + id;
-    }
-    const std::unordered_map<LabelID, unsigned> *getVertexBiNLF(const VertexID id) const
-    {
-        return bi_nlf_ + id;
-    }
-
 #if LABEL_MOTIF_LIMIT == 1
     std::map<unsigned, unsigned> *getVertexLabelMotifMap(const VertexID id) const
     {
@@ -191,24 +159,9 @@ public:
     }
 #endif //LABEL_MOTIF_ENABLE==1
 
-    const unsigned *getVerticesByLabel(const LabelID id, unsigned &count) const
-    {
-        count = reverse_index_offsets_[id + 1] - reverse_index_offsets_[id];
-        return reverse_index_ + reverse_index_offsets_[id];
-    }
-
     /*
  * PRINT
  */
-    /*
-    - each vertex: 
-        label; (label print as char: labelID+'A')
-        in out bi neighbors;
-        in out bi nlf_struct(in egonetwork:each label freq); 
-    */
-    virtual void printGraphDetail();
-    //label, neighbors
-    virtual void Motif::printGraphBasicDetail();
 #if LABEL_MOTIF_ENABLE == 1
     /*print label_motif_count_:
     label print as char: labelID+'A'

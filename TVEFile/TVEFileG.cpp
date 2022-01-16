@@ -46,6 +46,10 @@ void TVEFileG::loadGraphFromFile(const std::string &file_path)
 
             labels_[id] = label;
             offsets_[id + 1] = offsets_[id] + degree;
+            if (degree > max_degree_)
+            {
+                max_degree_ = degree;
+            }
 
             if (labels_frequency_.find(label) == labels_frequency_.end())
             {
@@ -88,9 +92,21 @@ void TVEFileG::loadGraphFromFile(const std::string &file_path)
     //sort in out according vertex id (to support bi search)
     for (unsigned i = 0; i < vertices_count_; ++i)
     {
-        std::sort(in_neighbors_ + offsets_[i], in_neighbors_ + offsets_[i] + in_neighbors_nums_[i]);
-        std::sort(out_neighbors_ + offsets_[i], out_neighbors_ + offsets_[i] + out_neighbors_nums_[i]);
+        unsigned indegree = in_neighbors_nums_[i];
+        if (indegree > max_single_degree_)
+        {
+            max_single_degree_ = indegree;
+        }
+        unsigned outdegree = out_neighbors_nums_[i];
+        if (outdegree > max_single_degree_)
+        {
+            max_single_degree_ = outdegree;
+        }
+
+        std::sort(in_neighbors_ + offsets_[i], in_neighbors_ + offsets_[i] + indegree);
+        std::sort(out_neighbors_ + offsets_[i], out_neighbors_ + offsets_[i] + outdegree);
     }
+    //归并get bi
     for (unsigned i = 0; i < vertices_count_; ++i)
     {
         unsigned off = offsets_[i];
@@ -121,5 +137,5 @@ void TVEFileG::loadGraphFromFile(const std::string &file_path)
     }
 
     BuildReverseIndex(); //label -> all vids
-    BuildNLF();
+    //BuildNLF();
 }

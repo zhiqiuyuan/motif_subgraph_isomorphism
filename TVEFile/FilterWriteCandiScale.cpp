@@ -2,11 +2,33 @@
 #include "TVEFileQ.h"
 #include "../bulkQueries/BulkQueries.h"
 
+void printUsage(std::set<std::string> filterMethodset, std::string default_output_dir, std::vector<unsigned> DEFAULT_QUERY_VERTEXSCALE_SET)
+{
+    std::cout << "usage:" << std::endl;
+    std::cout << "-d data_graph_absolute_path -q query_graph_absolute_path -f <filterMethod>(";
+    for (auto s : filterMethodset)
+    {
+        std::cout << s << " ";
+    }
+    std::cout << ") [-o <candiScale结果追加写入的目录绝对路径>] [-qset <空格分隔的整数>] [-jb <jb>] [-je <je>]" << std::endl;
+    std::cout << "[example]: \n";
+    std::cout << "./FilterWriteCandiScale -d /media/data/hnu2022/yuanzhiqiu/human/data_graph/human.graph -q /media/data/hnu2022/yuanzhiqiu/human/query_graph/SPARSE -f lmtf" << std::endl;
+    std::cout << "default:\n\t-o " + default_output_dir;
+    std::cout << "\n\t-qset ";
+    for (auto num : DEFAULT_QUERY_VERTEXSCALE_SET)
+    {
+        std::cout << num << " ";
+    }
+    std::cout << "\n\t-jb " << DEFAULT_JB << " -je " << DEFAULT_JE << std::endl;
+}
+
+/* WARNNING:没有检查命令行输入的option是否合法（即默认用户输入的option是支持的option的子集），仅检查输入的-f是否是合理取值
+*/
 /* 命令行参数：
 * -d <data_graph_absolute_path> 
 * -q <query_graph_absolute_path> 
-* -f <filterMethod> (目前支持："ldf","tmtf","nlf","lmtf_limit")
-* -o <candiScale结果追加写入的目录绝对路径> (可选，默认/media/data/hnu2022/yuanzhiqiu/filter_candiScale/)
+* -f <filterMethod> (目前支持："ldf","tmtf","nlf","lmtf_limit","gql")
+* -o <candiScale结果追加写入的目录绝对路径> (可选，默认std::string default_output_dir)
 * -qset <空格分隔的正整数> (可选，默认{8, 16, 24, 32})
 * -jb <jb> (可选，默认config.h中DEFAULT_JB)
 * -je <je> (可选，默认config.h中DEFAULT_JE)
@@ -33,32 +55,19 @@ int main(int argc, char **argv)
     /* GET CONSOLE OPTIONS
     */
     std::vector<unsigned> DEFAULT_QUERY_VERTEXSCALE_SET = {8, 16, 24, 32};
-    std::set<std::string> filterMethodset = {"ldf", "tmtf", "nlf", "lmtf_limit"};
+    std::set<std::string> filterMethodset = {"ldf", "tmtf", "nlf", "lmtf_limit", "gql", "cfl", "dpiso",
+                                             "nlf_lmtf_limit", "gql_lmtf_limit", "cfl_lmtf_limit", "dpiso_lmtf_limit"};
 
     std::string input_data_graph_file, input_query_graph_file, filterMethod;
-    std::string output_dir = "/media/data/hnu2022/yuanzhiqiu/filter_candiScale/"; //默认值
-    std::vector<unsigned> q_vertexScale_set = DEFAULT_QUERY_VERTEXSCALE_SET;      //默认值
-    unsigned jb = DEFAULT_JB, je = DEFAULT_JE;                                    //默认值
+    std::string default_output_dir = "/media/data/hnu2022/yuanzhiqiu/running_result/filterWriteCandiScale_result/default_output_dir/"; //默认值
+    std::string output_dir = default_output_dir;
+    std::vector<unsigned> q_vertexScale_set = DEFAULT_QUERY_VERTEXSCALE_SET; //默认值
+    unsigned jb = DEFAULT_JB, je = DEFAULT_JE;                               //默认值
     unsigned jsz = je - jb + 1;
 
     if (argc < 7)
     {
-        std::cout << "usage:" << std::endl;
-        std::cout << "-d data_graph_absolute_path -q query_graph_absolute_path -f <filterMethod>(";
-        for (auto s : filterMethodset)
-        {
-            std::cout << s << " ";
-        }
-        std::cout << ") [-o <candiScale结果追加写入的目录绝对路径>] [-qset <空格分隔的整数>] [-jb <jb>] [-je <je>]" << std::endl;
-        std::cout << "[example]: \n";
-        std::cout << "./FilterWriteCandiScale -d /media/data/hnu2022/yuanzhiqiu/human/data_graph/human.graph -q /media/data/hnu2022/yuanzhiqiu/human/query_graph/SPARSE -f lmtf" << std::endl;
-        std::cout << "default:\n\t-o /media/data/hnu2022/yuanzhiqiu/filter_candiScale/";
-        std::cout << "\n\t-qset ";
-        for (auto num : DEFAULT_QUERY_VERTEXSCALE_SET)
-        {
-            std::cout << num << " ";
-        }
-        std::cout << "\n\t-jb " << DEFAULT_JB << " -je " << DEFAULT_JE << std::endl;
+        printUsage(filterMethodset, default_output_dir, DEFAULT_QUERY_VERTEXSCALE_SET);
         return 0;
     }
     std::string op, val;
@@ -119,6 +128,7 @@ int main(int argc, char **argv)
             jsz = je - jb + 1;
         }
     }
+
     if (filterMethodset.count(filterMethod) == 0)
     {
         std::cout << "filterMethod NOT SUPPORTED: " << filterMethod << "\n";
@@ -128,6 +138,7 @@ int main(int argc, char **argv)
             std::cout << s << " ";
         }
         std::cout << ")\n";
+        return 0;
     }
 #if STEP_DEBUG == 1
     /* 输出cmd map，检查cmd map对不对
@@ -160,8 +171,8 @@ int main(int argc, char **argv)
 #endif //#if RUNNING_COMMENT==1
 
 #if STEP_DEBUG == 1
-    data_graph->printGraphBasicDetail();
-    std::cout << "-----" << std::endl;
+    //data_graph->printGraphDetail(0);
+    //std::cout << "-----" << std::endl;
 #endif //#if STEP_DEBUG == 1
 
     /* PREPARE DATA GRAPH: load offline structure
@@ -190,20 +201,18 @@ int main(int argc, char **argv)
         return 0;
 #endif //TOPO_MOTIF_ENABLE == 1 && LABEL_MOTIF_ENABLE==1
     }
-    else if (filterMethod == "nlf")
+    /*如果GQL之前用的labelmotif_limit则|| filterMethod == "gql"放lmtf_limit分支 
+    CFL同,DPiso同*/
+    else if (filterMethod == "nlf" || filterMethod == "gql" || filterMethod == "cfl")
     {
-#if LABEL_MOTIF_ENABLE == 1
 #if BASIC_RUNNING_COMMENT == 1 || RUNNING_COMMENT == 1
         std::cout << "compute nlf structure for data graph..." << std::endl;
 #endif //#if BASIC_RUNNING_COMMENT==1 || RUNNING_COMMENT==1
         data_graph->BuildNLF();
-#else  //#if LABEL_MOTIF_ENABLE == 1:
-        std::cout << "LABEL_MOTIF_ENABLE:" << LABEL_MOTIF_ENABLE << std::endl;
-        std::cout << "LABEL_MOTIF_ENABLE == 1 is needed, modify config.h" << std::endl;
-        return 0;
-#endif //#if LABEL_MOTIF_ENABLE == 1
     }
-    else if (filterMethod == "lmtf_limit")
+    /*如果GQL之前用的labelmotif_limit则|| filterMethod == "gql"放这个分支 
+    CFL,DPiso同*/
+    else if (filterMethod == "lmtf_limit" || filterMethod.find("_lmtf_limit") != std::string::npos)
     {
 #if LABEL_MOTIF_LIMIT == 1 && LABEL_MOTIF_ENABLE == 1
 #if BASIC_RUNNING_COMMENT == 1 || RUNNING_COMMENT == 1
@@ -225,6 +234,9 @@ int main(int argc, char **argv)
 
     /* FILTER
     */
+#if BASIC_RUNNING_COMMENT == 1 || RUNNING_COMMENT == 1
+    std::cout << "start filtering..." << std::endl;
+#endif //#if BASIC_RUNNING_COMMENT==1 || RUNNING_COMMENT==1
     idx = input_query_graph_file.find_last_of('/');
     std::string sparse_str = input_query_graph_file.substr(idx + 1); //SPARSE
     idx = input_data_graph_file_prefix.find_last_of('/');

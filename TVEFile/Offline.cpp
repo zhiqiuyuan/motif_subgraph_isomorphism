@@ -11,7 +11,7 @@ void offlineCompute(MotifG *data_graph, std::string dfile_prefix, std::string st
     if (structureKind == "tmtf")
     {
 #if TOPO_MOTIF_ENABLE == 1
-        data_graph->generateTopoMotifCount(input_data_graph_file_prefix);
+        data_graph->generateTopoMotifCount(dfile_prefix);
 #else  //TOPO_MOTIF_ENABLE == 0:
         std::cout << "TOPO_MOTIF_ENABLE:" << TOPO_MOTIF_ENABLE << std::endl;
         std::cout << "TOPO_MOTIF_ENABLE == 1 is needed, modify config.h" << std::endl;
@@ -21,7 +21,7 @@ void offlineCompute(MotifG *data_graph, std::string dfile_prefix, std::string st
     else if (structureKind == "lmtf_limit")
     {
 #if LABEL_MOTIF_LIMIT == 1 && LABEL_MOTIF_ENABLE == 1
-        data_graph->generateLabelMotifCount_limit(input_data_graph_file_prefix);
+        data_graph->generateLabelMotifCount_limit(dfile_prefix);
 #else  //TOPO_MOTIF_ENABLE == 0 || LABEL_MOTIF_ENABLE==0:
         std::cout << "LABEL_MOTIF_LIMIT:" << LABEL_MOTIF_LIMIT << std::endl;
         std::cout << "LABEL_MOTIF_ENABLE:" << LABEL_MOTIF_ENABLE << std::endl;
@@ -31,6 +31,21 @@ void offlineCompute(MotifG *data_graph, std::string dfile_prefix, std::string st
     }
 }
 
+void printUsage(std::set<std::string> structureKindset)
+{
+    std::cout << "usage:" << std::endl;
+    std::cout << "-d data_graph_absolute_path -f <structureKind>(";
+    for (auto s : structureKindset)
+    {
+        std::cout << s << " ";
+    }
+    std::cout << ")" << std::endl;
+    std::cout << "[example]: \n";
+    std::cout << "./offline -d /media/data/hnu2022/yuanzhiqiu/human/data_graph/human.graph -f tmtf" << std::endl;
+}
+
+/* WARNNING:没有检查命令行输入的option是否合法（即默认用户输入的option是按用法的），仅检查输入的参数个数是否是正确（没有可选参数）
+*/
 /* 命令行参数：
 * -d <data_graph_absolute_path> 
 * -f <structureKind> (目前支持："tmtf", "lmtf_limit")
@@ -47,15 +62,7 @@ int main(int argc, char **argv)
 
     if (argc != 5)
     {
-        std::cout << "usage:" << std::endl;
-        std::cout << "-d data_graph_absolute_path -f <structureKind>(";
-        for (auto s : structureKindset)
-        {
-            std::cout << s << " ";
-        }
-        std::cout << ")" << std::endl;
-        std::cout << "[example]: \n";
-        std::cout << "./offline -d /media/data/hnu2022/yuanzhiqiu/human/data_graph/human.graph -f tmtf" << std::endl;
+        printUsage(structureKindset);
         return 0;
     }
     std::string op, val;
@@ -83,7 +90,7 @@ int main(int argc, char **argv)
 #endif //#if RUNNING_COMMENT==1
 
 #if STEP_DEBUG == 1
-    data_graph->printGraphBasicDetail();
+    data_graph->printGraphDetail(0);
     std::cout << "-----" << std::endl;
 #endif //#if STEP_DEBUG == 1
 

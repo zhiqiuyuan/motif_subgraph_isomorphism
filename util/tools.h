@@ -7,7 +7,8 @@
 long long Rand(long long possible_max);
 
 //concate as left+right: pick element from left+right at random
-unsigned getRandFrom2Array(const unsigned *left, const unsigned *right, unsigned left_sz, unsigned right_sz);
+unsigned getRandFrom2Array(const unsigned *left, const unsigned *right, unsigned left_sz, unsigned right_sz, bool &is_left);
+unsigned getRandFromArray(const unsigned *left, unsigned left_sz);
 
 /*
 返回candidates_count的前vertex_num个元素的平均值

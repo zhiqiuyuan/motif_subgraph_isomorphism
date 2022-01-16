@@ -17,14 +17,22 @@ long long Rand(long long possible_max)
 }
 
 //concate as left+right: pick element from left+right at random
-unsigned getRandFrom2Array(const unsigned *left, const unsigned *right, unsigned left_sz, unsigned right_sz)
+unsigned getRandFrom2Array(const unsigned *left, const unsigned *right, unsigned left_sz, unsigned right_sz, bool &is_left)
 {
     unsigned idx = Rand(left_sz + right_sz);
     if (idx < left_sz)
     {
+        is_left = 1;
         return left[idx];
     }
+    is_left = 0;
     return right[idx - left_sz];
+}
+
+unsigned getRandFromArray(const unsigned *left, unsigned left_sz)
+{
+    unsigned idx = Rand(left_sz);
+    return left[idx];
 }
 
 /*

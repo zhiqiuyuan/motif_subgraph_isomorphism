@@ -25,6 +25,34 @@ BulkQueries::~BulkQueries()
 {
 }
 
+bool BulkQueries::qset_is_weakConnected(std::string startVertexSelectMethod)
+{
+        unsigned start = 0;
+
+        std::string filename;
+        for (int j = jb; j <= je; ++j)
+        {
+                filename = qfilename_pre + std::to_string(j) + ".graph";
+                TVEFileQ *query_graph = new TVEFileQ();
+                query_graph->loadGraphFromFile(filename);
+                /*
+                if (startVertexSelectMethod == "cfl")
+                {
+                }
+                else if (startVertexSelectMethod == "dpiso")
+                {
+                }
+                */
+                if (GraphFeatures::isWeakConnectedFromRoot(query_graph, start) == 0)
+                {
+                        std::cout << filename << std::endl;
+                        return 0;
+                }
+                delete query_graph;
+        }
+        return 1;
+}
+
 void BulkQueries::bulkq_filter_forAveCandiScale(std::string filterMethod)
 {
         ave_candiScale = 0;
@@ -60,11 +88,6 @@ void BulkQueries::bulkq_filter_forAveCandiScale(std::string filterMethod)
                 }
                 else if (filterMethod == "nlf")
                 {
-#if LABEL_MOTIF_ENABLE == 0
-                        std::cout << __FILE__ << " :" << __LINE__;
-                        std::cout << "\n\LABEL_MOTIF_ENABLE==0, nlf not supported, return. \n\tedit config/config.h\n";
-                        return;
-#endif //#if LABEL_MOTIF_ENABLE==0
                         new_candiScale = Filter::NLFFilter_AveCandiScale(data_graph, query_graph);
                 }
                 else if (filterMethod == "lmtf_limit")
@@ -78,6 +101,34 @@ void BulkQueries::bulkq_filter_forAveCandiScale(std::string filterMethod)
                         new_candiScale = Filter::LabelMotifFilter_limit_AveCandiScale(data_graph, query_graph, filename);
 #else
                         new_candiScale = Filter::LabelMotifFilter_limit_AveCandiScale(data_graph, query_graph);
+#endif //#if WRITE_TO_FILE_DEBUG==1
+                }
+                else if (filterMethod == "gql")
+                {
+                        new_candiScale = Filter::GQLFilter_AveCandiScale(data_graph, query_graph);
+                }
+                else if (filterMethod == "cfl")
+                {
+                        new_candiScale = Filter::CFLFilter_AveCandiScale(data_graph, query_graph);
+                }
+                else if (filterMethod == "dpiso")
+                {
+                        new_candiScale = Filter::DPisoFilter_AveCandiScale(data_graph, query_graph);
+                }
+                else if (filterMethod.find("_lmtf_limit") != std::string::npos)
+                {
+#if LABEL_MOTIF_ENABLE == 0 || LABEL_MOTIF_LIMIT == 0
+                        std::cout << __FILE__ << " :" << __LINE__;
+                        std::cout << "\n\tLABEL_MOTIF_ENABLE == 0 || LABEL_MOTIF_LIMIT == 0, lmtf_limit not supported, return. \n\tedit config/config.h\n";
+                        return;
+#endif //#if LABEL_MOTIF_ENABLE == 0 || LABEL_MOTIF_LIMIT==0
+                        std::string firstStageFilterKind;
+                        unsigned idx = filterMethod.find('_');
+                        firstStageFilterKind = filterMethod.substr(0, idx);
+#if WRITE_TO_FILE_DEBUG == 1
+                        new_candiScale = Filter::LabelMotifFilter_limit_AveCandiScale(data_graph, query_graph, firstStageFilterKind, filename);
+#else
+                        new_candiScale = Filter::LabelMotifFilter_limit_AveCandiScale(data_graph, query_graph, firstStageFilterKind, "");
 #endif //#if WRITE_TO_FILE_DEBUG==1
                 }
 

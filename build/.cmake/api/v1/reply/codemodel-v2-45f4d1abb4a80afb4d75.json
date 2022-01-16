@@ -1,0 +1,215 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "bulkQueries",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "bulkQueries",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "Matching",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Matching",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "MotifGraph",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "MotifGraph",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "util",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "util",
+					"targetIndexes" : 
+					[
+						8,
+						9
+					]
+				},
+				{
+					"build" : "TVEFile",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "TVEFile",
+					"targetIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6,
+						7
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"name" : "MOTIF",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 2,
+					"id" : "Matching::@cba26c2ca35b87cd5211",
+					"jsonFile" : "target-Matching-Debug-6146f9efcc0fdf170b86.json",
+					"name" : "Matching",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "MotifGraph::@93e374fe722852b5a110",
+					"jsonFile" : "target-MotifGraph-Debug-dfa6c255d0f5adb424d3.json",
+					"name" : "MotifGraph",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "bulkQueries::@41281ae20e1845f710e5",
+					"jsonFile" : "target-bulkQueries-Debug-a57a84db44ae25f2d9b2.json",
+					"name" : "bulkQueries",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "collectGGraphFeatures::@13afc85ad1e250707c57",
+					"jsonFile" : "target-collectGGraphFeatures-Debug-7bfa2d0a91d7a1296e31.json",
+					"name" : "collectGGraphFeatures",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "collectQGraphFeatures::@13afc85ad1e250707c57",
+					"jsonFile" : "target-collectQGraphFeatures-Debug-e25478edc855d7a81ba6.json",
+					"name" : "collectQGraphFeatures",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "filterWriteCandiScale::@13afc85ad1e250707c57",
+					"jsonFile" : "target-filterWriteCandiScale-Debug-e9b594e3207a43f0bb8d.json",
+					"name" : "filterWriteCandiScale",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "generateTVEFileQ::@13afc85ad1e250707c57",
+					"jsonFile" : "target-generateTVEFileQ-Debug-37ac7a14e7a1cefdeae3.json",
+					"name" : "generateTVEFileQ",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "offline::@13afc85ad1e250707c57",
+					"jsonFile" : "target-offline-Debug-868d1c734cd61315697b.json",
+					"name" : "offline",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "turnEFile2TVEFile::@5865449b717dd869d2cd",
+					"jsonFile" : "target-turnEFile2TVEFile-Debug-97761f01e24cf1faff35.json",
+					"name" : "turnEFile2TVEFile",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "util::@5865449b717dd869d2cd",
+					"jsonFile" : "target-util-Debug-b9f71cf98cb26db7fb6e.json",
+					"name" : "util",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter/build",
+		"source" : "E:/dev_tools/cppClassLearning/codeBlocks_learning_files/motif/afilter"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

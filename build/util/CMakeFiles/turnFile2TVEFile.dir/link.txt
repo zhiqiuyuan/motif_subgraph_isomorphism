@@ -1,0 +1,3 @@
+H:\cmake\cmake-3.17.0-rc1-win64-x64\cmake-3.17.0-rc1-win64-x64\bin\cmake.exe -E rm -f CMakeFiles\turnFile2TVEFile.dir/objects.a
+E:\dev_tools\cppClassLearning\CodeBlock\CodeBlocks\MinGW\bin\ar.exe cr CMakeFiles\turnFile2TVEFile.dir/objects.a @CMakeFiles\turnFile2TVEFile.dir\objects1.rsp
+E:\dev_tools\cppClassLearning\CodeBlock\CodeBlocks\MinGW\bin\x86_64-w64-mingw32-g++.exe -g   -Wl,--whole-archive CMakeFiles\turnFile2TVEFile.dir/objects.a -Wl,--no-whole-archive  -o ..\turnFile2TVEFile.exe -Wl,--out-implib,..\libturnFile2TVEFile.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\turnFile2TVEFile.dir\linklibs.rsp

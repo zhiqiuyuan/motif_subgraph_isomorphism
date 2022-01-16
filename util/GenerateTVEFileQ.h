@@ -12,6 +12,7 @@ public:
     std::vector<unsigned> edge_to;
     std::set<unsigned> vertices;
     std::map<unsigned, int> id2degree; //indegree+outdegree
+    std::set<std::string> treeEdges;   //FromvertexID_TovertexID（大图里面的vertexId）
     QGraph(int isSparse0) : isSparse(isSparse0)
     {
         curr_vcnt = 0;
@@ -57,6 +58,21 @@ public:
         id2degree[toId]--;
         return 1;
     }
+    void remove_1edge(unsigned remove_edge_idx)
+    {
+        unsigned fromId = edge_from[remove_edge_idx], toId = edge_to[remove_edge_idx];
+        id2degree[fromId]--;
+        id2degree[toId]--;
+    }
+    //注意此函数单纯从edge_from\to中根据idx读取vertexID，然后拼接成字符串看是否在树边set中
+    //树边set中存的str按的vertexID是原先大图中的
+    bool isTreeEdge(unsigned remove_edge_idx)
+    {
+        unsigned fromId = edge_from[remove_edge_idx], toId = edge_to[remove_edge_idx];
+        std::string str = std::to_string(fromId) + "_" + std::to_string(toId);
+        return treeEdges.count(str);
+    }
+
     bool addVertex(unsigned vid, const Graph *dg)
     {
         if (std::find(vertices.begin(), vertices.end(), vid) != vertices.end())
@@ -85,6 +101,11 @@ public:
                 edge_to.push_back(v);
             }
         }
+    }
+    void insertTreeEdge(unsigned fromId, unsigned toId)
+    {
+        std::string str = std::to_string(fromId) + "_" + std::to_string(toId);
+        treeEdges.insert(str);
     }
     bool isVertex(unsigned vid)
     {
@@ -119,8 +140,11 @@ public:
  * degree_threshold: some data_graph are too sparse that cannot find dense subgraph whose average degree>=3, some adjust it
  */
 bool gen_qgraph_from_start(unsigned start, unsigned vcnt_required, unsigned curr_qcnt, unsigned degree_threshold, std::string dest_dir, QGraph *currq, Graph *dg);
+/* 从out邻居中随机选取下一个顶点（则这样生成的查询图一定是强联通的） */
+bool gen_qgraph_from_start_out(unsigned start, unsigned vcnt_required, unsigned curr_qcnt, unsigned degree_threshold, std::string dest_dir, QGraph *currq, Graph *dg);
 
-/* sparse_arr: {0} {1} {0,1}
+/* WARNNING:硬编码call gen_qgraph_from_start
+ * sparse_arr: {0} {1} {0,1}
  * dest_dir: write to dest_dir/query_dense_vcnt_currqcnt.graph  xxx/youtube/query_graph/
  * file format: t v e
  * when generating dense query_graph, it's possible to abort (when the function finds the data_graph is too sparse)

@@ -42,6 +42,6 @@ DEBUG
 #define WRITE_TO_FILE_DEBUG 1	//计算motif结构时会以好检查的形式写入_debug文件中
 #define RUNNING_COMMENT 1		//运行时输出表示运行程度的信息（如计算Motif结构时计算好了多少顶点）
 #define BASIC_RUNNING_COMMENT 1 //输出基础的表示运行程度的信息（如现在在加载数据图；输出信息是RUNNING_COMMENT==1时的子集）
-#define STEP_DEBUG 1			//细粒度一步一步输出状态
+#define STEP_DEBUG 0			//细粒度一步一步输出状态
 
 #endif //_CONFIG_H

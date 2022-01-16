@@ -1,0 +1,3 @@
+H:\cmake\cmake-3.17.0-rc1-win64-x64\cmake-3.17.0-rc1-win64-x64\bin\cmake.exe -E rm -f CMakeFiles\toffline.dir/objects.a
+E:\dev_tools\cppClassLearning\CodeBlock\CodeBlocks\MinGW\bin\ar.exe cr CMakeFiles\toffline.dir/objects.a @CMakeFiles\toffline.dir\objects1.rsp
+E:\dev_tools\cppClassLearning\CodeBlock\CodeBlocks\MinGW\bin\x86_64-w64-mingw32-g++.exe -g   -Wl,--whole-archive CMakeFiles\toffline.dir/objects.a -Wl,--no-whole-archive  -o ..\toffline.exe -Wl,--out-implib,..\libtoffline.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\toffline.dir\linklibs.rsp

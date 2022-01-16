@@ -9,52 +9,53 @@ Motif::Motif() : Graph()
 #if LABEL_MOTIF_ENABLE == 1
     label_motif_count_ = NULL;
     label_motif_count_sz_ = NULL;
-    in_nlf_ = NULL;
-    out_nlf_ = NULL;
-    bi_nlf_ = NULL;
 #if LABEL_MOTIF_LIMIT == 1
     label_motif_map_ = NULL;
 #endif //LABEL_MOTIF_LIMIT==1
 
 #endif //LABEL_MOTIF_ENABLE==1
-    reverse_index_offsets_ = NULL;
-    reverse_index_ = NULL;
 }
 
 Motif::~Motif()
 {
 #if TOPO_MOTIF_ENABLE == 1 && ONLINE_STAGE == 1
-    for (unsigned i = 0; i < vertices_count_; ++i)
+    if (motif_count_ != NULL)
+    //由Motif::Motif()，TOPO_MOTIF_ENABLE == 1则构造时一定置motif_count_ == NULL，如果有申请和计算结构的话才要释放
     {
-        delete[] motif_count_[i];
+        for (unsigned i = 0; i < vertices_count_; ++i)
+        {
+            delete[] motif_count_[i];
+        }
+        delete[] motif_count_;
     }
-    delete[] motif_count_;
 #endif //TOPO_MOTIF_ENABLE == 1 && ONLINE_STAGE == 1
 
 #if LABEL_MOTIF_ENABLE == 1 && ONLINE_STAGE == 1
-    delete[] in_nlf_;
-    delete[] out_nlf_;
-    delete[] bi_nlf_;
 #if LABEL_MOTIF_LIMIT == 0
-    for (unsigned i = 0; i < vertices_count_; ++i)
+    if (label_motif_count_ != NULL)
     {
-        delete[] label_motif_count_[i];
+        for (unsigned i = 0; i < vertices_count_; ++i)
+        {
+            delete[] label_motif_count_[i];
+        }
+        delete[] label_motif_count_;
+        delete[] label_motif_count_sz_;
     }
-    delete[] label_motif_count_;
-    delete[] label_motif_count_sz_;
 #else  //LABEL_MOTIF_LIMIT == 1:
-    delete[] label_motif_map_;
+    if (label_motif_map_ != NULL)
+    {
+        delete[] label_motif_map_;
+    }
 #endif //LABEL_MOTIF_LIMIT == 0
 
 #endif //LABEL_MOTIF_ENABLE == 1 && ONLINE_STAGE == 1
-    delete[] reverse_index_offsets_;
-    delete[] reverse_index_;
 }
 
 /*
  * TOPO_MOTIF_ENABLE
  */
 #if TOPO_MOTIF_ENABLE == 1
+
 bool Motif::generateTopoMotifCount(std::string filename_prefix)
 {
 #if (ONLINE_STAGE == 0 || WRITE_TO_FILE_DEBUG == 1)
@@ -135,12 +136,12 @@ bool Motif::generateTopoMotifCount(std::string filename_prefix)
         }
         fout_debug << "\n";
 #endif //#if WRITE_TO_FILE_DEBUG == 1
-#if RUNNING_COMMENT == 1
+#if RUNNING_COMMENT == 1 && ONLINE_STAGE == 0
         if (i % 100 == 0)
         {
             std::cout << "already finished motif count for " << i << " nodes" << std::endl;
         }
-#endif //RUNNING_COMMENT==1
+#endif //RUNNING_COMMENT==1 && ONLINE_STAGE == 0
     }
 #if ONLINE_STAGE == 0
     delete[] motif_cnt;
@@ -152,6 +153,105 @@ bool Motif::generateTopoMotifCount(std::string filename_prefix)
     return 1;
 }
 
+/* 用于数据集topcats_wiki debug，寻找卡住原因，但是发现单独计算一个顶点是可以的欸：
+进一步试验发现，其实卡住可能是没有及时输出到stdout，以及没有及时写入文件（至少vim看到的还没有更新）
+发现契机：1.发现标准输出输出的进度为279100已经完成，但是文件的279100行只写了一部分 2.挂着运行了很久发现可以过这个卡住的坎
+bool Motif::generateTopoMotifCount(std::string filename_prefix)
+{
+#if (ONLINE_STAGE == 0 || WRITE_TO_FILE_DEBUG == 1)
+    if (filename_prefix == "")
+    {
+        std::cout << __FILE__ << ": " << __LINE__;
+        std::cout << "\n\tin generateTopoMotifCount: no filename_prefix specified, return\n";
+        return 0;
+    }
+#endif                          //(ONLINE_STAGE == 0 || WRITE_TO_FILE_DEBUG == 1)
+    filename_prefix += "_topo"; //xxx/youtube_topo
+#if ONLINE_STAGE == 0
+    std::ofstream fout(filename_prefix + ".txt");
+    if (!fout.is_open())
+    {
+        std::cout << __FILE__ << ": " << __LINE__;
+        std::cout << "\n\tfile not exited : " << filename_prefix + ".txt " << std::endl;
+        return 0;
+    }
+#endif //ONLINE_STAGE == 0
+#if WRITE_TO_FILE_DEBUG == 1
+    std::ofstream fout_debug(filename_prefix + "_debug.txt");
+    if (!fout_debug.is_open())
+    {
+        std::cout << __FILE__ << ": " << __LINE__;
+        std::cout << "\n\tfile not exited: " << filename_prefix + ".txt" << std::endl;
+        return 0;
+    }
+#endif //#if WRITE_TO_FILE_DEBUG == 1
+
+    unsigned *motif_cnt;
+#if ONLINE_STAGE == 1
+    motif_count_ = new unsigned *[vertices_count_];
+    for (size_t i = 0; i < vertices_count_; ++i)
+    {
+        motif_count_[i] = new unsigned[MOTIF_COUNT_DEMENSION]();
+    }
+#else  //ONLINE_STAGE==0
+    motif_cnt = new unsigned[MOTIF_COUNT_DEMENSION]();
+#endif // ONLINE_STAGE==1
+    unsigned i = 279100;
+
+#if ONLINE_STAGE == 1
+    motif_cnt = motif_count_[i];
+#else
+    memset(motif_cnt, 0, sizeof(unsigned) * MOTIF_COUNT_DEMENSION);
+#endif //ONLINE_STAGE==1
+#if WRITE_TO_FILE_DEBUG == 1
+    std::vector<std::vector<std::pair<int, int>>> motif_detail(MOTIF_COUNT_DEMENSION, std::vector<std::pair<int, int>>());
+    directed_motif_count_debug(i, motif_cnt, motif_detail);
+#else  //WRITE_TO_FILE_DEBUG == 0
+    directed_motif_count(i, motif_cnt);
+#endif //#if WRITE_TO_FILE_DEBUG == 1
+
+    char split_c;
+#if ONLINE_STAGE == 0
+    split_c = ' ';
+    fout << i;
+    for (unsigned a = 0; a < MOTIF_COUNT_DEMENSION; ++a)
+    {
+        fout << split_c << motif_cnt[a];
+    }
+    fout << "\n";
+#endif //#if ONLINE_STAGE == 0
+#if WRITE_TO_FILE_DEBUG == 1
+    split_c = '\t';
+    fout_debug << "v" << i + 1 << "\n";
+    for (unsigned a = 0; a < MOTIF_COUNT_DEMENSION; ++a)
+    {
+        fout_debug << a << ": cnt" << motif_cnt[a] << ": ";
+        for (auto p : motif_detail[a])
+        {
+            //elem:pair
+            fout_debug << "(v" << p.first + 1 << " ,v" << p.second + 1 << ")" << split_c;
+        }
+        fout_debug << "\n";
+    }
+    fout_debug << "\n";
+#endif //#if WRITE_TO_FILE_DEBUG == 1
+#if RUNNING_COMMENT == 1 && ONLINE_STAGE == 0
+    if (i % 100 == 0)
+    {
+        std::cout << "already finished motif count for " << i << " nodes" << std::endl;
+    }
+#endif //RUNNING_COMMENT==1 && ONLINE_STAGE == 0
+
+#if ONLINE_STAGE == 0
+    delete[] motif_cnt;
+    fout.close();
+#endif //#if ONLINE_STAGE == 0
+#if WRITE_TO_FILE_DEBUG == 1
+    fout_debug.close();
+#endif //#if WRITE_TO_FILE_DEBUG == 1
+    return 1;
+}
+*/
 void Motif::directed_motif_count(unsigned i, unsigned *motif_cnt)
 {
     const unsigned *in, *out, *bi;
@@ -596,12 +696,12 @@ bool Motif::generateLabelMotifCount(std::string filename_prefix)
         fout << "\n";
         fout_codeInChar << "\n";
 #endif //WRITE_TO_FILE_DEBUG==1
-#if RUNNING_COMMENT == 1
+#if RUNNING_COMMENT == 1 && ONLINE_STAGE == 0
         if (i && i % 100 == 0)
         {
             std::cout << "already finished motif count for " << i << " nodes" << std::endl;
         }
-#endif //RUNNING_COMMENT
+#endif //RUNNING_COMMENT && ONLINE_STAGE == 0
     }
     //write max_kind and min_kind
 #if WRITE_TO_FILE_DEBUG == 1
@@ -623,50 +723,6 @@ bool Motif::generateLabelMotifCount(std::string filename_prefix)
     fout_codeInChar.close();
 #endif //WRITE_TO_FILE_DEBUG==1
     return 1;
-}
-
-void Motif::BuildNLF()
-{
-    in_nlf_ = new std::unordered_map<LabelID, unsigned>[vertices_count_];
-    out_nlf_ = new std::unordered_map<LabelID, unsigned>[vertices_count_];
-    bi_nlf_ = new std::unordered_map<LabelID, unsigned>[vertices_count_];
-    const VertexID *neighbors;
-    unsigned cnt;
-    LabelID label;
-    for (unsigned i = 0; i < vertices_count_; ++i)
-    {
-        //count 3 kind
-        neighbors = getVertexInNeighbors(i, cnt);
-        for (unsigned j = 0; j < cnt; ++j)
-        {
-            label = getVertexLabel(neighbors[j]);
-            if (in_nlf_[i].count(label) == 0)
-            {
-                in_nlf_[i][label] = 0;
-            }
-            in_nlf_[i][label]++;
-        }
-        neighbors = getVertexOutNeighbors(i, cnt);
-        for (unsigned j = 0; j < cnt; ++j)
-        {
-            label = getVertexLabel(neighbors[j]);
-            if (out_nlf_[i].count(label) == 0)
-            {
-                out_nlf_[i][label] = 0;
-            }
-            out_nlf_[i][label]++;
-        }
-        neighbors = getVertexBiNeighbors(i, cnt);
-        for (unsigned j = 0; j < cnt; ++j)
-        {
-            label = getVertexLabel(neighbors[j]);
-            if (bi_nlf_[i].count(label) == 0)
-            {
-                bi_nlf_[i][label] = 0;
-            }
-            bi_nlf_[i][label]++;
-        }
-    }
 }
 
 #if LABEL_MOTIF_LIMIT == 1
@@ -781,12 +837,12 @@ bool Motif::generateLabelMotifCount_limit(std::string filename_prefix)
         }
         fout_codeInChar << "\n";
 #endif //WRITE_TO_FILE_DEBUG==1
-#if RUNNING_COMMENT == 1
+#if RUNNING_COMMENT == 1 && ONLINE_STAGE == 0
         if (i && i % 100 == 0)
         {
-            std::cout << "already finished motif count for " << i << " nodes" << std::endl;
+            std::cout << "already finished label limit motif count for " << i << " nodes" << std::endl;
         }
-#endif //RUNNING_COMMENT==1
+#endif //RUNNING_COMMENT==1 && ONLINE_STAGE == 0
     }
 
     /*
@@ -1841,75 +1897,8 @@ void Motif::directed_label_motif_count_limit_debug(unsigned i, std::map<unsigned
 #endif //LABEL_MOTIF_ENABLE==1
 
 /*
- * LDF, NLF
- */
-void Motif::BuildReverseIndex()
-{
-    reverse_index_ = new unsigned[vertices_count_];
-    reverse_index_offsets_ = new unsigned[labels_count_ + 1];
-    reverse_index_offsets_[0] = 0;
-
-    unsigned total = 0;
-    for (unsigned i = 0; i < labels_count_; ++i)
-    {
-        reverse_index_offsets_[i + 1] = total;
-        total += labels_frequency_[i];
-    }
-
-    for (unsigned i = 0; i < vertices_count_; ++i)
-    {
-        LabelID label = labels_[i];
-        reverse_index_[reverse_index_offsets_[label + 1]++] = i;
-    }
-}
-
-/*
  * PRINT
  */
-/*
-- each vertex: 
-    label; (label print as char: labelID+'A')
-    in out bi neighbors;
-    in out bi nlf_struct(in egonetwork:each label freq); 
-*/
-void Motif::printGraphDetail()
-{
-    Graph::printGraphDetail(); //label, neighbors
-    std::cout << "-----" << std::endl;
-    std::cout << std::endl;
-    for (unsigned i = 0; i < vertices_count_; ++i)
-    {
-        std::cout << "v" << i + 1 << ":" << std::endl;
-        std::cout << "in nlf: " << std::endl;
-        const std::unordered_map<LabelID, unsigned> *pmap = getVertexInNLF(i);
-        for (auto it : *pmap)
-        {
-            std::cout << char(it.first + 'A') << ":" << it.second << " ";
-        }
-        std::cout << std::endl;
-        std::cout << "out nlf: " << std::endl;
-        pmap = getVertexOutNLF(i);
-        for (auto it : *pmap)
-        {
-            std::cout << char(it.first + 'A') << ":" << it.second << " ";
-        }
-        std::cout << std::endl;
-        std::cout << "bi nlf: " << std::endl;
-        pmap = getVertexBiNLF(i);
-        for (auto it : *pmap)
-        {
-            std::cout << char(it.first + 'A') << ":" << it.second << " ";
-        }
-        std::cout << std::endl;
-        std::cout << "-----" << std::endl;
-    }
-}
-
-//label, neighbors
-void Motif::printGraphBasicDetail()
-{
-    Graph::printGraphDetail(); //label, neighbors
-}
 
 #if LABEL_MOTIF_ENABLE == 1
 /*print label_motif_count_:

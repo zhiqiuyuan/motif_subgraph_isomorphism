@@ -117,7 +117,12 @@ void MotifG::loadLabelMotifCountFromFile_limit(std::string filename_prefix)
 {
     label_motif_map_ = new std::map<unsigned, unsigned>[vertices_count_];
     unsigned vid, code_cnt, code, cnt;
-    std::ifstream fin(filename_prefix + "_directed_label_limit.txt");
+    std::ifstream fin(filename_prefix + "_label_limit.txt");
+    if (fin.is_open() == 0)
+    {
+        std::cout << filename_prefix << "_label_limit.txt not exit" << std::endl;
+        return;
+    }
     std::map<unsigned, unsigned> *one_vertex_cnt_map;
     while (fin >> vid >> code_cnt)
     {
