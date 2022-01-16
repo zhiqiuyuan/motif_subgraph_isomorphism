@@ -1,4 +1,4 @@
-./getFilenamesUnderdir.cpp
-./main.exe
-./.vscode
-./.vscode/*
+.vscode
+.vscode/*
+build
+./build/*
