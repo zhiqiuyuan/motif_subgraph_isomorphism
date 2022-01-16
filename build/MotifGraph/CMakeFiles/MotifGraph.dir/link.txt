@@ -1,3 +1,0 @@
-H:\cmake\cmake-3.17.0-rc1-win64-x64\cmake-3.17.0-rc1-win64-x64\bin\cmake.exe -E rm -f CMakeFiles\MotifGraph.dir/objects.a
-E:\dev_tools\cppClassLearning\CodeBlock\CodeBlocks\MinGW\bin\ar.exe cr CMakeFiles\MotifGraph.dir/objects.a @CMakeFiles\MotifGraph.dir\objects1.rsp
-E:\dev_tools\cppClassLearning\CodeBlock\CodeBlocks\MinGW\bin\x86_64-w64-mingw32-g++.exe  -g  -shared -o ..\libMotifGraph.dll -Wl,--out-implib,..\libMotifGraph.dll.a -Wl,--major-image-version,0,--minor-image-version,0 -Wl,--whole-archive CMakeFiles\MotifGraph.dir/objects.a -Wl,--no-whole-archive @CMakeFiles\MotifGraph.dir\linklibs.rsp
